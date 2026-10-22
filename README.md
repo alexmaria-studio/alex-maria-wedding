@@ -1,26 +1,18 @@
-# The Wedding of Alex & Maria
+# Alex & Maria — Wedding Invitation
 
-A responsive luxury-editorial digital wedding invitation built with HTML, CSS, and JavaScript.
+A responsive luxury editorial wedding invitation website, styled around an old-money Italian villa celebration at Lake Como, Italy.
 
 ## Files
-- `index.html` — page structure and copy
-- `style.css` — responsive design
-- `script.js` — countdown, mobile menu, and demo RSVP interaction
-
-## Preview locally
-Open `index.html` in a browser. An internet connection is needed for Google Fonts and the Unsplash images.
+- `index.html` — page structure and invitation copy
+- `style.css` — responsive visual design
+- `script.js` — mobile navigation, countdown, and demo RSVP interaction
+- `images/` — the three supplied images used by the site
 
 ## Publish with GitHub Pages
-1. Sign in to GitHub and create a new **public repository**, e.g. `alex-maria-wedding`.
-2. Open the repository and choose **Add file → Upload files**.
-3. Upload `index.html`, `style.css`, and `script.js`, then commit them to the `main` branch.
-4. Open **Settings → Pages**.
-5. Under **Build and deployment**, choose **Deploy from a branch**.
-6. Select branch `main` and folder `/ (root)`, then click **Save**.
-7. Wait a minute or two. The URL will look like `https://YOUR-GITHUB-USERNAME.github.io/alex-maria-wedding/`.
+1. Upload every file and the `images` folder to the root of your `alex-maria-wedding` repository.
+2. Open **Settings → Pages**.
+3. Set **Deploy from a branch**, branch `main`, folder `/(root)`, then save.
+4. Open `https://alexmaria-studio.github.io/alex-maria-wedding/` after publishing finishes.
 
-## Customize before sharing
-- Update the sample date, times, venue, dress code, and RSVP deadline in `index.html`.
-- Update `WEDDING_DATE` in `script.js` to match the real date/time.
-- The RSVP form is a front-end demo only; it does not send or store submissions. Connect a form service for real RSVPs.
-- Gallery images are remote Unsplash images for inspiration. Replace them with licensed or personally owned images for a real event.
+## Customise before using for a real event
+The couple names, wedding date, event schedule, RSVP deadline, and Lake Como setting are sample invitation details. Update them to match the real event. The RSVP form is a front-end demo: it does not send or save submissions.

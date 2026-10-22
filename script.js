@@ -1,52 +1,48 @@
-// Update this date/time to your actual wedding date and local timezone.
-const WEDDING_DATE = new Date("2027-09-19T15:30:00+04:00");
-const countdownEls = {
-  days: document.getElementById("days"),
-  hours: document.getElementById("hours"),
-  minutes: document.getElementById("minutes"),
-  seconds: document.getElementById("seconds")
-};
-function updateCountdown() {
-  const difference = WEDDING_DATE.getTime() - Date.now();
-  if (difference <= 0) {
-    Object.values(countdownEls).forEach((el, i) => el.textContent = i === 0 ? "000" : "00");
-    return;
-  }
-  const total = Math.floor(difference / 1000);
-  countdownEls.days.textContent = String(Math.floor(total / 86400)).padStart(3, "0");
-  countdownEls.hours.textContent = String(Math.floor((total % 86400) / 3600)).padStart(2, "0");
-  countdownEls.minutes.textContent = String(Math.floor((total % 3600) / 60)).padStart(2, "0");
-  countdownEls.seconds.textContent = String(total % 60).padStart(2, "0");
-}
-updateCountdown();
-setInterval(updateCountdown, 1000);
-
 const menuToggle = document.querySelector(".menu-toggle");
-const navigation = document.querySelector(".navigation");
-menuToggle.addEventListener("click", () => {
-  const open = navigation.classList.toggle("is-open");
+const nav = document.querySelector(".nav");
+
+menuToggle?.addEventListener("click", () => {
+  const open = nav.classList.toggle("open");
   menuToggle.setAttribute("aria-expanded", String(open));
   menuToggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
   menuToggle.textContent = open ? "×" : "☰";
 });
-navigation.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
-  navigation.classList.remove("is-open");
-  menuToggle.setAttribute("aria-expanded", "false");
-  menuToggle.textContent = "☰";
-}));
 
-// Demo only: validates the RSVP but does not send or store data.
-document.getElementById("rsvp-form").addEventListener("submit", event => {
+document.querySelectorAll(".nav a").forEach(link => {
+  link.addEventListener("click", () => {
+    nav.classList.remove("open");
+    menuToggle?.setAttribute("aria-expanded", "false");
+    if (menuToggle) {
+      menuToggle.textContent = "☰";
+      menuToggle.setAttribute("aria-label", "Open navigation");
+    }
+  });
+});
+
+// Demo date: 19 September 2027, 4:00 PM in the visitor's local time.
+const weddingDate = new Date(2027, 8, 19, 16, 0, 0);
+function updateCountdown() {
+  const remaining = Math.max(0, weddingDate.getTime() - Date.now());
+  const values = {
+    days: Math.floor(remaining / 86400000),
+    hours: Math.floor((remaining % 86400000) / 3600000),
+    minutes: Math.floor((remaining % 3600000) / 60000),
+    seconds: Math.floor((remaining % 60000) / 1000)
+  };
+  Object.entries(values).forEach(([id, value]) => {
+    const element = document.getElementById(id);
+    if (element) element.textContent = id === "days" ? String(value).padStart(3, "0") : String(value).padStart(2, "0");
+  });
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+document.getElementById("rsvpForm")?.addEventListener("submit", event => {
   event.preventDefault();
-  const name = document.getElementById("guest-name").value.trim();
-  const attendance = document.getElementById("attendance").value;
-  const message = document.getElementById("form-message");
-  if (!name || !attendance) {
-    message.textContent = "Please complete your name and attendance response.";
-    return;
-  }
-  message.textContent = attendance === "accept"
-    ? `Thank you, ${name} — your demo RSVP looks lovely! Connect a form service to receive real responses.`
-    : `Thank you for letting us know, ${name}. Connect a form service to receive real responses.`;
-  event.target.reset();
+  const name = document.getElementById("guestName").value.trim();
+  const choice = document.getElementById("attendance").value;
+  const feedback = document.getElementById("formFeedback");
+  feedback.textContent = choice === "joyfully-accept"
+    ? `Thank you, ${name}! Your demo reply has been noted on this screen only.`
+    : `Thank you for letting us know, ${name}. This is a demo form only.`;
 });
